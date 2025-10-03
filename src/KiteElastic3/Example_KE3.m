@@ -104,8 +104,12 @@ t_end  = 60;
 % underlying code, you must regenerate the .mexw64 file. Uncomment as
 % needed.
 
-%[T, u, cv, icv] = RK4Integrator_KE3(t_end,deltaT, u0, cv0, PD);
-[T, u, cv, icv] = RK4Integrator_KE3_mex(t_end,deltaT, u0, cv0, PD);
+% WARNING: RK4Integrator_KE3_mex has been compiled with R2025b. If you are
+% running an older version of Matlab and execution fails, you may have to
+% regenerate it using Matlab Coder on the RK4Integrator_KE3 function.
+
+%[T, u, cv, icv] = RK4Integrator_KE3(t_end,deltaT, u0, cv0, PD); % Matlab
+[T, u, cv, icv] = RK4Integrator_KE3_mex(t_end,deltaT, u0, cv0, PD); % mexw64 (compiled)
 
 %% Post processing
 k = 1;
