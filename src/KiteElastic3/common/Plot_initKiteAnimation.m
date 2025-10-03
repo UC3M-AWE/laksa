@@ -23,11 +23,13 @@ function handles = Plot_initKiteAnimation(PD)
     view(handles.ax1,[120 20]);
     grid(handles.ax1,'on');
     axis(handles.ax1,'equal');
-    axis(handles.ax1,[-1.1 0 -1 1 0 1.1]*max(PD.Tether.L0));
+    axis(handles.ax1,[-1.1 0 -1 1 -1.1 0]*max(PD.Tether.L0));
     xlabel(handles.ax1,'x (m)');
     ylabel(handles.ax1,'y (m)');
     zlabel(handles.ax1,'z (m)');
     hold(handles.ax1,'on');
+    set(gca, 'YDir', 'reverse')
+    set(gca, 'ZDir', 'reverse')
     
     % Inset axes
     handles.ax2 = axes('Position',[0.65 0.7 0.28 0.28]);
@@ -38,8 +40,9 @@ function handles = Plot_initKiteAnimation(PD)
     handles.ax2.XTickLabel = '';
     handles.ax2.YTickLabel = '';
     handles.ax2.ZTickLabel = '';
+    set(gca, 'YDir', 'reverse')
+    set(gca, 'ZDir', 'reverse')
 
-    
     % Pre‐create tether lines (main + inset)
     nTethers = size(PD.Bridle.Connectivity,1);
     handles.tethers1 = gobjects(nTethers,1);

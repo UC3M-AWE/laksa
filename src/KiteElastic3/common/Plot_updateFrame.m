@@ -28,7 +28,7 @@ function Plot_updateFrame(handles, t, u, RBE, PD)
     rk = u(1:3)'; % Kite CG position expressed in Earth frame
 
     % Adjust inset axis:
-    axis(handles.ax2,[rk(1)-1.1*b  rk(1)+1.1*b  -rk(2)-1.5*b -rk(2)+1.5*b  -rk(3)-1.1*b  -rk(3)+1.1*b]);
+    axis(handles.ax2,[rk(1)-1.1*b  rk(1)+1.1*b  rk(2)-1.5*b rk(2)+1.5*b  rk(3)-1.1*b  rk(3)+1.1*b]);
     
     % Build the kite corner points in body coords
     rg = [rk(1); rk(2);rk(3)];
@@ -54,18 +54,6 @@ function Plot_updateFrame(handles, t, u, RBE, PD)
     backLeftE  = toE(backLeftB);
     backRightE  = toE(backRightB);
     
-    % Flip Y/Z sign for plotting convention
-    centralSpineE(2,:) = -centralSpineE(2,:);
-    centralSpineE(3,:) = -centralSpineE(3,:);
-    leftEdgeE(2,:) = -leftEdgeE(2,:);
-    leftEdgeE(3,:) = -leftEdgeE(3,:);
-    rightEdgeE(2,:) = -rightEdgeE(2,:);
-    rightEdgeE(3,:) = -rightEdgeE(3,:);
-    backLeftE(2,:) = -backLeftE(2,:);
-    backLeftE(3,:) = -backLeftE(3,:);
-    backRightE(2,:) = -backRightE(2,:);
-    backRightE(3,:) = -backRightE(3,:);
-    
     % 1) Update body‐outline lines
     verts = {centralSpineE, leftEdgeE, rightEdgeE, backLeftE, backRightE};
     for kLine = 1:length(verts)
@@ -89,9 +77,9 @@ function Plot_updateFrame(handles, t, u, RBE, PD)
     
     % 3) Update center dot
     set(handles.points1.center, ...
-        'XData', rk(1), 'YData', -rk(2), 'ZData', -rk(3));
+        'XData', rk(1), 'YData', rk(2), 'ZData', rk(3));
     set(handles.points2.center, ...
-        'XData', rk(1), 'YData', -rk(2), 'ZData', -rk(3));
+        'XData', rk(1), 'YData', rk(2), 'ZData', rk(3));
     
     % 4) Local horizontal  (in Earth frame)
     origin = rk;
@@ -101,12 +89,12 @@ function Plot_updateFrame(handles, t, u, RBE, PD)
         P2 = origin + axesH(:,ia);
         set(handles.lines1.horiz(ia), ...
             'XData',[P1(1) P2(1)], ...
-            'YData',[-P1(2) -P2(2)], ...
-            'ZData',[-P1(3) -P2(3)]);
+            'YData',[P1(2) P2(2)], ...
+            'ZData',[P1(3) P2(3)]);
         set(handles.lines2.horiz(ia), ...
             'XData',[P1(1) P2(1)], ...
-            'YData',[-P1(2) -P2(2)], ...
-            'ZData',[-P1(3) -P2(3)]);
+            'YData',[P1(2) P2(2)], ...
+            'ZData',[P1(3) P2(3)]);
     end
     
     % 5) Body axes
@@ -118,12 +106,12 @@ function Plot_updateFrame(handles, t, u, RBE, PD)
         P2 = rfs{ia};
         set(handles.lines1.bodyAx(ia), ...
             'XData',[rk(1) P2(1)], ...
-            'YData',[-rk(2) -P2(2)], ...
-            'ZData',[-rk(3) -P2(3)]);
+            'YData',[rk(2) P2(2)], ...
+            'ZData',[rk(3) P2(3)]);
         set(handles.lines2.bodyAx(ia), ...
             'XData',[rk(1) P2(1)], ...
-            'YData',[-rk(2) -P2(2)], ...
-            'ZData',[-rk(3) -P2(3)]);
+            'YData',[rk(2) P2(2)], ...
+            'ZData',[rk(3) P2(3)]);
     end
     
     % 6) Tethers + bridles
@@ -142,8 +130,8 @@ function Plot_updateFrame(handles, t, u, RBE, PD)
     for i=1:nTethers
         tetherVector = [r(:,i) ; EarthAnchors(:,i)];
         X = tetherVector(1:3:end);
-        Y = -tetherVector(2:3:end);
-        Z = -tetherVector(3:3:end);
+        Y = tetherVector(2:3:end);
+        Z = tetherVector(3:3:end);
         set(handles.tethers1(i), 'XData',X,'YData',Y,'ZData',Z);
         set(handles.tethers2(i), 'XData',X,'YData',Y,'ZData',Z);
         
@@ -158,13 +146,13 @@ function Plot_updateFrame(handles, t, u, RBE, PD)
 
             set(handles.bridles1(j + prev_j), ...
             'XData',[tetherVector(1) bridlePointsE(1,j)], ...
-            'YData',[-tetherVector(2) -bridlePointsE(2,j)], ...
-            'ZData',[-tetherVector(3) -bridlePointsE(3,j)]);
+            'YData',[tetherVector(2) bridlePointsE(2,j)], ...
+            'ZData',[tetherVector(3) bridlePointsE(3,j)]);
 
             set(handles.bridles2(j + prev_j), ...
             'XData',[tetherVector(1) bridlePointsE(1,j)], ...
-            'YData',[-tetherVector(2) -bridlePointsE(2,j)], ...
-            'ZData',[-tetherVector(3) -bridlePointsE(3,j)]);
+            'YData',[tetherVector(2) bridlePointsE(2,j)], ...
+            'ZData',[tetherVector(3) bridlePointsE(3,j)]);
         end
         prev_j = j + prev_j;
     end
