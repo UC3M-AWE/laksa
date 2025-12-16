@@ -17,12 +17,12 @@
 
 function Plot_updateFrame(handles, t, u, RBE, PD)
     % Scales for easier visalization
-    bScale = 2;
-    xScale = 2;
+    bScale = 1;
+    cScale = 1;
 
     % Compute geometry:
     b  = PD.Kite.b*bScale;
-    c = PD.Kite.c*xScale;
+    c = PD.Kite.c*cScale;
     h  = PD.Kite.h;
     hg = PD.Kite.hg;
     rk = u(1:3)'; % Kite CG position expressed in Earth frame
