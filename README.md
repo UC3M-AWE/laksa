@@ -9,6 +9,7 @@ MATLAB source code.
 ## Authors
 - Gonzalo Sánchez-Arriaga <gonsanch@ing.uc3m.es>
 - Alejandro Pastor-Rodríguez <alejandro.pastor@alumnos.uc3m.es>
+- Francisco DeLosRíos-Navarrete <francisco.los@alumnos.uc3m.es>
 
 ## Acknowledgment
 This work was initially supported by *Fundación BBVA* (Grant No. *IN[15]\_TIC\_ING\_0313*) and then continued thanks to the funding of the Spanish State Research Agency (MICIU/AEI/10.13039/501100011033) under the projects GreenKite (ENE2015-69937-R, MINECO/FEDER, UE), GreenKite2 ((PID2019-110146RB-I00) and Kite2Grid (PID2022-141520OB-I00). Gonzalo Sánchez-Arriaga was supported by the Spanish Ministry of Economy, Industry and Competitiveness (*Grant No RYC-2014-15357*)
